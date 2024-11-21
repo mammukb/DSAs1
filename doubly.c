@@ -10,13 +10,14 @@ struct node
 
 void insertion();
 void print_link();
+void delete();
 
 int main()
 {
     while (1)
     {
 
-        int  x;
+        int x;
         printf("\n 1.INSERT \n 2.DELETE  \n 3.DISPLAY \n 4.EXIT \n");
         scanf("%d", &x);
 
@@ -26,7 +27,7 @@ int main()
             insertion();
             break;
         case 2:
-            //delete ();
+            delete ();
             break;
         case 3:
             print_link();
@@ -44,13 +45,11 @@ void print_link()
     while (temp != NULL)
     {
         printf("%d", temp->data);
-        printf(" --><-- ");
+        printf(" <----> ");
         temp = temp->next;
     }
     printf("null");
 }
-
-
 
 void insertion()
 {
@@ -81,7 +80,7 @@ void insertion()
             scanf("%d", &x);
             temp = (struct node *)malloc(sizeof(struct node *));
             temp->next = head;
-            temp->prev=NULL;
+            temp->prev = NULL;
             temp->data = x;
             head = temp;
             return;
@@ -98,7 +97,7 @@ void insertion()
             }
             newnode->next = temp->next;
             temp->next = newnode;
-            temp->prev=current;
+            temp->prev = current;
             newnode->data = x;
             return;
         case 3:
@@ -108,12 +107,48 @@ void insertion()
             current->next = newnode;
             newnode->data = x;
             newnode->next = NULL;
-            newnode->prev=current;
+            newnode->prev = current;
             current = newnode;
             return;
 
         default:
             break;
+        }
+    }
+}
+
+void delete()
+{
+    while (1)
+    {
+        int c, x, i;
+        printf("\n1.deletion at beginning \n2.deletion at any position \n 3.deletion at end \n");
+        scanf("%d", &c);
+        switch (c)
+        {
+        case 1:
+            head = head->next;
+            return;
+        case 2:
+            printf("enter your position:");
+            scanf("%d", &x);
+            temp = head;
+            for (i = 2; i < x; i++)
+            {
+                temp = temp->next;
+            }     
+            temp->next->next->prev = temp;
+            temp->next=temp->next->next;
+            return;
+        case 3:
+
+            temp = head;
+            while (temp->next->next != NULL)
+            {
+                temp = temp->next;
+            }
+            temp->next = NULL;
+            return;
         }
     }
 }
