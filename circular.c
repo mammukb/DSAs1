@@ -29,6 +29,9 @@ int main()
     // int c = 1;
     // while (c)
     //{{}
+
+
+    
     while (1)
     {
         printf("\n 1.Insertion \n 2.Display\n 3.Delete\n 4.exit\n");
