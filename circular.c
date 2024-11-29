@@ -48,7 +48,7 @@ int main()
             delete_link();
             break;
         case 4:
-             return 0;  
+            return 0;  
           
         default:
             break;
@@ -88,6 +88,7 @@ void insertion()
             temp->data = x;
             head = temp;
             tail->next = head;
+            printf("head =%d tail=%d" , head->data, tail->data);
             return;
         case 2:
             printf("enter your position:");
@@ -103,6 +104,8 @@ void insertion()
             newnode->next = temp->next;
             temp->next = newnode;
             newnode->data = x;
+            printf(" head =%d tail=%d" , head->data, tail->data);
+
             return;
         case 3:
             printf("Enter the data :");
@@ -112,6 +115,8 @@ void insertion()
             newnode->data = x;
             newnode->next = head;
             tail = newnode;
+            printf("head =%d tail=%d" , head->data, tail->data);
+
             return;
 
         default:
@@ -139,6 +144,7 @@ void delete_link()
         case 1:
             head = head->next;
             tail->next = head;
+            printf("head =%d tail=%d" , head->data, tail->data);
             return;
         case 2:
             printf("enter your position:");
@@ -149,6 +155,7 @@ void delete_link()
                 temp = temp->next;
             }
             temp->next = temp->next->next;
+            printf("head =%d tail=%d" , head->data, tail->data);
             return;
         case 3:
 
@@ -158,6 +165,8 @@ void delete_link()
                 temp = temp->next;
             }
             temp->next = head;
+            tail= temp;
+            printf("head =%d tail=%d" , head->data, tail->data);
             return;
 
             
