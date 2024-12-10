@@ -34,7 +34,6 @@
 //     }
 // }
 
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -42,7 +41,7 @@ struct node
 {
     int data;
     struct node *left, *right;
-};
+} *temp, *parent, *ptr;
 
 struct node *createnode(int data)
 {
@@ -79,23 +78,113 @@ void inordertraversal(struct node *root)
         inordertraversal(root->right);
     }
 }
+struct node *succ(struct node *root)
+{
+    temp = root->right;
+    while (temp->left != NULL)
+    {
+        temp = temp->left;
+    }
+    return temp;
+}
+
+void delete(struct node *root, int data)
+{
+
+    temp = root;
+    parent = NULL;
+    int flag = 0, Case;
+    while (temp != NULL && flag == 0)
+    {
+        if (data < temp->data)
+        {
+            parent = temp;
+            temp = temp->left;
+        }
+        if (data > temp->data)
+        {
+            parent = temp;
+            temp = temp->right;
+        }
+        if (temp->data == data)
+        {
+            flag = 1;
+        }
+    }
+    if (flag == 0)
+    {
+        printf("Element doesnot exits");
+        return;
+    }
+    if (temp->left == NULL && temp->right == NULL)
+        Case = 1;
+    else if (temp->left != NULL && temp->right != NULL)
+        Case = 2;
+    else
+        Case = 3;
+
+    if (Case == 1)
+    {
+        if (parent->left == temp)
+        {
+            parent->left = NULL;
+            free(temp);
+        }
+        else
+        {
+            parent->right = NULL;
+            free(temp);
+        }
+    }
+    if (Case == 2)
+    {
+        ptr = succ(temp);
+        temp->data = ptr->data;
+        delete (ptr, ptr->data);
+    }
+    if (Case == 3)
+    {
+        if (parent->left == temp)
+        {
+            if (temp->left == NULL)
+            {
+                parent->left = temp->right;
+            }
+            else
+            {
+                parent->right = temp->left;
+            }
+        }
+        else if (parent->right == temp)
+        {
+            if (temp->left == NULL)
+            {
+                parent->right = temp->right;
+            }
+            else
+            {
+                parent->right = temp->left;
+            }
+        }
+    }
+}
 
 void search(struct node *root, int key)
 {
-    if(root == NULL)
+    if (root == NULL)
+    {
         printf("Element  not Found !!");
+        return;
+    }
 
     if (root->data == key)
     {
-        
         printf("Element Found !!");
-        
     }
     if (key > root->data)
         search(root->right, key);
     if (key < root->data)
-        search(root->right, key);
-
+        search(root->left, key);
 }
 
 int empty(struct node *root)
@@ -109,17 +198,16 @@ int empty(struct node *root)
         return 1;
 }
 
-
-
 int main()
 {
     struct node *root = NULL;
+    int data;
 
     int choice, value, s, f;
     printf("Enter your option :");
     do
     {
-        printf("\n 1-Insert \n 2-Display \n 3-Search \n 4-Exit");
+        printf("\n 1-Insert \n 2-Display \n 3-Search \n 4-delete \n 5-Exit");
         scanf("%d", &choice);
 
         switch (choice)
@@ -143,6 +231,11 @@ int main()
             }
             break;
         case 4:
+            printf("Enter the Value to delete :");
+            scanf("%d", &data);
+            delete (root, data);
+            break;
+        case 5:
             exit(0);
         default:
             printf("Invalid Entry !!");
