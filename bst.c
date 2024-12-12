@@ -1,38 +1,4 @@
-// #include <stdio.h>
-// #include<stdlib.h>
 
-// struct bst
-// {
-//     int data;
-//     struct bst *left;
-//     struct bst *right;
-// } *root = NULL,*temp,*newnode;
-
-// int main()
-// {
-//     int n;
-//     int c=1;
-//     while (c)
-//     {
-//         printf("Enter the data : ");
-//         scanf("%d", &n);
-//         newnode = (struct node *)malloc(sizeof(struct node *));
-//         newnode->data = n;
-//         if(root == NULL){
-//             newnode->left =NULL;
-//             newnode->right = NULL;
-//             root =newnode;
-//         }
-//         else {
-//             if(n<root->data){
-
-//             }
-
-//         }
-//         printf("Do you want to continue 1/0 ? ");
-//         scanf("%d",&c);
-//     }
-// }
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,6 +44,24 @@ void inordertraversal(struct node *root)
         inordertraversal(root->right);
     }
 }
+void preodertraversal(struct node *root)
+{
+    if (root != NULL)
+    {
+        printf("%d \t", root->data);
+        preodertraversal(root->left);
+        preodertraversal(root->right);
+    }
+}
+void postodertraversal(struct node *root)
+{
+    if (root != NULL)
+    {
+        postodertraversal(root->left);
+        postodertraversal(root->right);
+        printf("%d \t", root->data);
+    }
+}
 struct node *succ(struct node *root)
 {
     temp = root->right;
@@ -87,86 +71,136 @@ struct node *succ(struct node *root)
     }
     return temp;
 }
+// struct node* delete(struct node *root, int data)
+// {
 
-void delete(struct node *root, int data)
+//     temp = root;
+//     parent = NULL;
+//     int flag = 0, Case;
+//     while (temp != NULL && flag == 0)
+//     {
+//         if (data < temp->data)
+//         {
+//             parent = temp;
+//             temp = temp->left;
+//         }
+//         if (data > temp->data)
+//         {
+//             parent = temp;
+//             temp = temp->right;
+//         }
+//         if (temp->data == data)
+//         {
+//             flag = 1;
+//         }
+//     }
+//     if (flag == 0)
+//     {
+//         printf("Element doesnot exits");
+//         return root;
+//     }
+//     if (temp->left == NULL && temp->right == NULL)
+//         Case = 1;
+//     else if (temp->left != NULL && temp->right != NULL)
+//         Case = 2;
+//     else
+//         Case = 3;
+
+//     if (Case == 1)
+//     {
+//         if (parent->left == temp)
+//         {
+//             parent->left = NULL;
+//             free(temp);
+//         }
+//         else
+//         {
+//             parent->right = NULL;
+//             free(temp);
+//         }
+//             return;
+
+//     }
+//     if (Case == 2)
+//     {
+//         ptr = succ(temp);
+//         temp->data = ptr->data;
+//         delete (ptr, ptr->data);
+//         return;
+//     }
+//     if (Case == 3)
+//     {
+//         if (parent->left == temp)
+//         {
+//             if (temp->left == NULL)
+//             {
+//                 parent->left = temp->right;
+
+//             }
+//             else
+//             {
+//                 parent->right = temp->left;
+//             }
+//         }
+//         else if (parent->right == temp)
+//         {
+//             if (temp->left == NULL)
+//             {
+//                 parent->right = temp->right;
+//             }
+//             else
+//             {
+//                 parent->right = temp->left;
+//             }
+//         }
+//         return;
+//     }
+// }
+struct node *delete(struct node *root, int data)
 {
-
-    temp = root;
-    parent = NULL;
-    int flag = 0, Case;
-    while (temp != NULL && flag == 0)
+    if (root == NULL)
     {
-        if (data < temp->data)
-        {
-            parent = temp;
-            temp = temp->left;
-        }
-        if (data > temp->data)
-        {
-            parent = temp;
-            temp = temp->right;
-        }
-        if (temp->data == data)
-        {
-            flag = 1;
-        }
+        return NULL;
     }
-    if (flag == 0)
+    if (data < root->data)
     {
-        printf("Element doesnot exits");
-        return;
+        root->left = delete (root->left, data);
     }
-    if (temp->left == NULL && temp->right == NULL)
-        Case = 1;
-    else if (temp->left != NULL && temp->right != NULL)
-        Case = 2;
+    else if (data > root->data)
+    {
+        root->right = delete (root->right, data);
+    }
     else
-        Case = 3;
-
-    if (Case == 1)
     {
-        if (parent->left == temp)
+        if (root->left == NULL && root->right == NULL)
         {
-            parent->left = NULL;
-            free(temp);
+            free(root);
+            return NULL;
+        }
+        else if (root->left == NULL || root == NULL)
+        {
+            if (root->left == NULL)
+            {
+                temp = root->right;
+                free(root);
+                return temp;
+            }
+            else
+            {
+                temp = root->left;
+                free(root);
+                return temp;
+            }
         }
         else
         {
-            parent->right = NULL;
-            free(temp);
+            temp = succ(root);
+            root->data = temp->data;
+            root->right = delete (root->right, temp->data);
         }
     }
-    if (Case == 2)
-    {
-        ptr = succ(temp);
-        temp->data = ptr->data;
-        delete (ptr, ptr->data);
-    }
-    if (Case == 3)
-    {
-        if (parent->left == temp)
-        {
-            if (temp->left == NULL)
-            {
-                parent->left = temp->right;
-            }
-            else
-            {
-                parent->right = temp->left;
-            }
-        }
-        else if (parent->right == temp)
-        {
-            if (temp->left == NULL)
-            {
-                parent->right = temp->right;
-            }
-            else
-            {
-                parent->right = temp->left;
-            }
-        }
-    }
+
+    return root;
 }
 
 void search(struct node *root, int key)
@@ -231,9 +265,12 @@ int main()
             }
             break;
         case 4:
+          if (empty(root))
+            {
             printf("Enter the Value to delete :");
             scanf("%d", &data);
-            delete (root, data);
+            root = delete (root, data);
+            }
             break;
         case 5:
             exit(0);
