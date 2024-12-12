@@ -177,7 +177,7 @@ struct node *delete(struct node *root, int data)
             free(root);
             return NULL;
         }
-        else if (root->left == NULL || root == NULL)
+        else if (root->left == NULL || root->right== NULL)
         {
             if (root->left == NULL)
             {
@@ -277,5 +277,5 @@ int main()
         default:
             printf("Invalid Entry !!");
         }
-    } while (choice != 4);
+    } while (choice != 5);
 }
