@@ -1,12 +1,12 @@
 #include <stdio.h>
 
 #define MAX 10
+int parent[MAX];
 
-int parent[MAX] = {-1};
 
 int find(int i)
 {
-    while (parent[i] != -1)
+    while (parent[i])
         i = parent[i];
     return i;
 }
@@ -21,7 +21,7 @@ void uni(int i, int j)
 
 int main()
 {
-    int num_vertex, i, v1, v2;
+    int num_vertex, i, v1, v2,mstcost=0;
     printf("Enter the Number of Vertex :");
     scanf("%d", &num_vertex);
     int vertices[num_vertex], cost[num_vertex][num_vertex],edge1[num_vertex],edge2[num_vertex];
@@ -36,7 +36,7 @@ int main()
     {
         for (int j = 0; j < num_vertex; j++)
         {
-            printf("Vertex[%d][%d] :", vertices[i], vertices[j]);
+            printf("Vertex[%d][%d] :", vertices[i],vertices[j]);
             scanf("%d",&cost[i][j]);
             if (cost[i][j] == 0)
             {
@@ -52,13 +52,15 @@ int main()
             if (cost[i][j] < min)
             {
                 min = cost[i][j];
+                mstcost+=min;
                 v1 = i;
                 v2 = j;
                 if (find(v1) != find(v2))
                 {
                     edge1[e]=v1;
                     edge2[e]=v2;
-                    uni(v1, v2);
+                    e++;
+                    uni(v1,v2);
                 }
             }
         }
@@ -66,6 +68,6 @@ int main()
 
     printf("The MST contains Edges");
     for (int i = 0 ;  i<num_vertex ; i++) {
-        printf("%d -- %d\n" ,  edge1[i],edge2[i]);
+        printf("%d -- %d\n" ,edge1[i],edge2[i]);
     }
 }
