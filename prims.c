@@ -1,5 +1,4 @@
 #include <stdio.h>
-void prims(int adj[10][10], int n);
 
 int main()
 {
@@ -14,24 +13,27 @@ int main()
         for (int j = 0; j < n; j++)
         {
             printf("Weight[%d][%d] : ", i, j);
-
             scanf("%d", &adj[i][j]);
             if (adj[i][j] == 0)
                 adj[i][j] = 999;
-            if (adj[i][j] < min)
-            {
-                min = adj[i][j];
-                u = i;
-                v = j;
-            }
+            // else
+            // {
+                // adj[j][i] = adj[i][j];
+                if (adj[i][j] < min)
+                {
+                    min = adj[i][j];
+                    u = i;
+                    v = j;
+                }
+            // }
         }
     }
     cost += min;
     vist[u] = 1;
-    vist[u] = 1;
+    vist[v] = 1;
     printf("SPANNING TREE : EDGES ARE \n");
-    printf("{%d,%d} = %d", u, v, min);
-    int e = 0;
+    printf("{%d,%d} = %d \n", u, v, min);
+    int e = 1;
     while (e < n - 1)
     {
         min = 999;
@@ -51,11 +53,11 @@ int main()
                     }
                 }
             }
-            cost += min;
-            vist[v] = 1;
-            printf("{%d,%d} = %d", u, v, min);
         }
-        e++;
+        cost += min;
+        vist[v] = 1;
+        printf("{%d,%d} = %d \n", u, v, min);
+        e = e + 1;
     }
     printf("Total Cost = %d", cost);
 }
