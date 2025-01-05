@@ -50,18 +50,21 @@ int main()
             if (cost[i][j] < min)
             {
                 min = cost[i][j];
-                mstcost += min;
                 v1 = i;
                 v2 = j;
-                if (find(v1) != find(v2))
-                {
-                    edge1[e] = v1;
-                    edge2[e] = v2;
-                    e++;
-                    uni(v1, v2);
-                }
             }
         }
+        if (find(v1) != find(v2))
+        {
+            edge1[e] = v1;
+            edge2[e] = v2;
+            e++;
+            mstcost += min;
+
+            uni(v1, v2);
+        }
+
+        min = 999;
     }
 
     printf("The MST contains Edges");

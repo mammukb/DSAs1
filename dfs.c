@@ -4,24 +4,13 @@ void dfs(int a[][5], int n); // Changed the parameter declaration
 
 int main()
 {
-    int i, n;
-    printf("Enter the number of vertices :");
-    scanf("%d", &n);
+    int i, n = 5;
 
     int a[5][5] = {0, 1, 0, 1, 1,
                    1, 0, 1, 0, 0,
                    0, 1, 0, 1, 1,
                    1, 0, 1, 0, 0,
                    1, 0, 1, 0, 0};
-    // printf("Enter the adjacency matrix:\n");
-    // for (int i = 0; i < n; i++)
-    // {
-    //     for (int j = 0; j < n; j++)
-    //     {
-    //         printf("Enter the Vertex[%d][%d]: ", i, j);
-    //         scanf("%d", &a[i][j]);
-    //     }
-    // }
 
     dfs(a, n);
 
@@ -30,29 +19,39 @@ int main()
 
 void dfs(int a[][5], int n)
 {
+
     int stack[5], visited[5] = {0};
-    int top = -1, st;
+    int top = 0, st, count = 0, f;
 
     printf("Enter the vertex to start: ");
     scanf("%d", &st);
-    stack[++top] = st;
+    stack[top] = st;
     visited[st] = 1;
-
-    printf("DFS Traversal is: ");
+    printf("DFS Traversal is : %d\t", st);
 
     while (top != -1)
     {
-        st = stack[top--];
-        printf("%d ", st);
-
-        for (int j = 0; j < n; j++)
+        f = 0;
+        for (int i = 0; i < n; i++)
         {
-            if (a[st][j] == 1 && !visited[j])
+            if (a[st][i] == 1 && !visited[i])
             {
-                stack[++top] = j;
-                visited[j] = 1;
+                printf("%d\t", i);
+                top++;
+                stack[top] = i;
+                st = i;
+                f = 1;
+                visited[i] = 1;
                 break;
             }
         }
+        if (f == 0)
+        {
+            {
+                st = stack[top];
+                top--;
+            }
+        }
+        count++;
     }
 }
