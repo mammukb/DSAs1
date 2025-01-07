@@ -16,16 +16,13 @@ int main()
             scanf("%d", &adj[i][j]);
             if (adj[i][j] == 0)
                 adj[i][j] = 999;
-            // else
-            // {
-                // adj[j][i] = adj[i][j];
+          
                 if (adj[i][j] < min)
                 {
                     min = adj[i][j];
                     u = i;
                     v = j;
                 }
-            // }
         }
     }
     cost += min;

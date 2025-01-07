@@ -1,42 +1,39 @@
-#include<stdio.h>
+#include <stdio.h>
+int bfs(int a[][5], int n);
 
-int main() {
-    int i,n;
-    printf("Enter the number of vertices :");
-    scanf("%d",&n);
-    int a[n][n];
-    printf("Enter the adjacency matrix");
-    for (int i =0 ; i< n ; i++){
-        for(int j =0 ;j <n ; j++) {
-            printf("Enter the Vertex[%d][%d]",i,j);
-            scanf("%d",&a[i][j]);
-        }
-    }
-    bfs(a,n);
+int main()
+{
+    int i, n = 5;
 
-
-
-
-
+    int a[5][5] = {0, 1, 0, 1, 1,
+                   1, 0, 1, 0, 0,
+                   0, 1, 0, 1, 1,
+                   1, 0, 1, 0, 0,
+                   1, 0, 1, 0, 0};
+    bfs(a, n);
 }
 
-int bfs(int a[][], int n){
-    int q[n],front =0,rear=0,v[n];
-    printf("BFS Tracersal is :")
-    for (int i =0;i<n;i++) {
-        for (int j=0;j<n;j++ ){
-            if(a[i][j] == 1){
-             printf("%d",j);
-             v[j]=1;
-             q[front] = a[j];
-             front++;
-             
-                         
+int bfs(int a[][5], int n)
+{
+    int q[n], front = -1, rear = -1, v[5] = {0}, st;
+    printf("Enter the Starting Vertex :");
+    scanf("%d", &st);
+    q[++rear] = st;
+    v[st] = 1;
+
+    printf("BFS Traversal is :");
+    while (front < rear)
+    {
+        st = q[++front];
+        printf("%d", st);
+
+        for (int j = 0; j < n; j++)
+        {
+            if (a[st][j] == 1 && v[j] == 0)
+            {
+                v[j] = 1;
+                q[++rear] = j;
             }
-            
         }
     }
-
-
-
 }
