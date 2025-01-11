@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -71,91 +69,6 @@ struct node *succ(struct node *root)
     }
     return temp;
 }
-// struct node* delete(struct node *root, int data)
-// {
-
-//     temp = root;
-//     parent = NULL;
-//     int flag = 0, Case;
-//     while (temp != NULL && flag == 0)
-//     {
-//         if (data < temp->data)
-//         {
-//             parent = temp;
-//             temp = temp->left;
-//         }
-//         if (data > temp->data)
-//         {
-//             parent = temp;
-//             temp = temp->right;
-//         }
-//         if (temp->data == data)
-//         {
-//             flag = 1;
-//         }
-//     }
-//     if (flag == 0)
-//     {
-//         printf("Element doesnot exits");
-//         return root;
-//     }
-//     if (temp->left == NULL && temp->right == NULL)
-//         Case = 1;
-//     else if (temp->left != NULL && temp->right != NULL)
-//         Case = 2;
-//     else
-//         Case = 3;
-
-//     if (Case == 1)
-//     {
-//         if (parent->left == temp)
-//         {
-//             parent->left = NULL;
-//             free(temp);
-//         }
-//         else
-//         {
-//             parent->right = NULL;
-//             free(temp);
-//         }
-//             return;
-
-//     }
-//     if (Case == 2)
-//     {
-//         ptr = succ(temp);
-//         temp->data = ptr->data;
-//         delete (ptr, ptr->data);
-//         return;
-//     }
-//     if (Case == 3)
-//     {
-//         if (parent->left == temp)
-//         {
-//             if (temp->left == NULL)
-//             {
-//                 parent->left = temp->right;
-
-//             }
-//             else
-//             {
-//                 parent->right = temp->left;
-//             }
-//         }
-//         else if (parent->right == temp)
-//         {
-//             if (temp->left == NULL)
-//             {
-//                 parent->right = temp->right;
-//             }
-//             else
-//             {
-//                 parent->right = temp->left;
-//             }
-//         }
-//         return;
-//     }
-// }
 struct node *delete(struct node *root, int data)
 {
     if (root == NULL)
@@ -177,7 +90,7 @@ struct node *delete(struct node *root, int data)
             free(root);
             return NULL;
         }
-        else if (root->left == NULL || root->right== NULL)
+        else if (root->left == NULL || root->right == NULL)
         {
             if (root->left == NULL)
             {
@@ -265,11 +178,11 @@ int main()
             }
             break;
         case 4:
-          if (empty(root))
+            if (empty(root))
             {
-            printf("Enter the Value to delete :");
-            scanf("%d", &data);
-            root = delete (root, data);
+                printf("Enter the Value to delete :");
+                scanf("%d", &data);
+                root = delete (root, data);
             }
             break;
         case 5:
