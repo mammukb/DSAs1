@@ -132,14 +132,31 @@ void delete()
         case 2:
             printf("enter your position:");
             scanf("%d", &x);
-            temp = head;
-            for (i = 2; i < x; i++)
+            if (x == 1)
             {
-                temp = temp->next;
-            }     
-            temp->next->next->prev = temp;
-            temp->next=temp->next->next;
-            return;
+                head = head->next;
+                return;
+            }
+            else
+            {
+                temp = head;
+                for (i = 2; i < x; i++)
+                {
+                    temp = temp->next;
+                }
+                if (temp->next->next == NULL)
+                {
+                    temp->next = NULL;
+                    return;
+                }
+                else
+                {
+                    temp->next->next->prev = temp;
+                    temp->next = temp->next->next;
+                    return;
+                }
+            }
+
         case 3:
 
             temp = head;
