@@ -16,18 +16,18 @@ void uni(int i, int j)
 }
 int main()
 {
-    int num_vertex, i, v1, v2, mstcost = 0;
+    int n, i, v1, v2, mstcost = 0;
     printf("Enter the Number of Vertex :");
-    scanf("%d", &num_vertex);
-    int vertices[num_vertex], cost[num_vertex][num_vertex], mst[num_vertex][num_vertex];
-    for (int i = 0; i < num_vertex; i++)
+    scanf("%d", &n);
+    int vertices[n], cost[n][n];
+    for (int i = 0; i < n; i++)
     {
         parent[i] = i;
     }
     printf("Enter the Cost Adjacency Matrix :\n");
-    for (int i = 0; i < num_vertex; i++)
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < num_vertex; j++)
+        for (int j = 0; j < n; j++)
         {
             printf("Vertex[%d][%d] :", i, j);
             scanf("%d", &cost[i][j]);
@@ -40,11 +40,11 @@ int main()
     }
     int e = 0;
     int min = 999;
-    while (e < num_vertex - 1)
+    while (e < n - 1)
     {
-        for (int i = 0; i < num_vertex; i++)
+        for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < num_vertex; j++)
+            for (int j = 0; j < n; j++)
             {
                 if (cost[i][j] < min)
                 {
@@ -58,30 +58,11 @@ int main()
         {
             e++;
             mstcost += min;
-            mst[v1][v2] = mst[v2][v1] = min;
             cost[v1][v2] = cost[v2][v1] = 999;
+            printf("%d -%d ,COST=%d\n", v1,v2,min);
+
             uni(v1, v2);
             min = 999;
-        }
-    }
-    printf("MST Contains:\n");
-    for (int i = 0; i < num_vertex; i++)
-    {
-        for (int j = i; j < num_vertex; j++)
-        {
-            if(mst[i][j]!=0){
-            printf("%d -%d ,COST=%d\n", i,j,mst[i][j]);
-            }
-        }
-    }
-    
-    printf("The MST adj matrix");
-    for (int i = 0; i < num_vertex; i++)
-    {
-        printf("\n");
-        for (int j = 0; j < num_vertex; j++)
-        {
-            printf("%d ", mst[i][j]);
         }
     }
 }

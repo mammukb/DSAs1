@@ -30,7 +30,7 @@ int main()
     //{{}
     while (1)
     {
-        printf("\n 1.Insertion \n 2.Display\n 3.Delete\n");
+        printf("\n 1.Insertion \n 2.Display\n 3.Delete\n 4.print reverse\n");
         scanf("%d", &k);
         switch (k)
         {
@@ -43,12 +43,24 @@ int main()
         case 3:
             delete_link();
             break;
+            case 4:
+             reverseprint();
+             break;
         case 5:
             return 0;
 
         default:
             break;
         }
+    }
+}
+
+void printreverse() {
+
+    temp = head;
+
+    while (temp->next != NULL){
+        
     }
 }
 
